@@ -1,21 +1,18 @@
 # vue-douban
 
-> A Vue.js project
+> 用VUE2实现豆瓣评分小程序
 
-## Build Setup
+## 项目界面
+![](https://github.com/helloaihao/vue-douban-movie/blob/master/home.png)
+
+## 安装、启动项目
 
 ``` bash
-# install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
+# 因为豆瓣接口不支持跨域，开发环境使用反向代理调用接口，生产环境暂不支持
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
