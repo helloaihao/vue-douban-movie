@@ -75,7 +75,7 @@ export default {
 @import '../assets/sass/mixin.scss';
 
 .movie-component {
-  height: 2.55rem;
+  height: 2.65rem;
   padding-top: .01rem;
   border-bottom: .1rem solid #f9f9f9;
 
@@ -86,11 +86,11 @@ export default {
   .title-box {
     margin: $size 0;
     padding: 0 $size;
-    border-left: .03rem solid $gren;
+    border-left: .03rem solid $green;
   }
 
   .more {
-    color: $gren;
+    color: $green;
     float: right;
   }
 
@@ -102,16 +102,19 @@ export default {
     white-space: nowrap;
     font-size: 0;
     overflow-x: auto;
+    height: 2.08rem;
+    // ios 上滑动顺畅
+    -webkit-overflow-scrolling : touch;
   }
 
   .item {
     font-size: $size;
     width: 1rem;
-    padding-left: $size;
+    margin-left: $size;
     display: inline-block;
 
     &:last-child {
-      padding-right: $size;
+      margin-right: $size;
     }
 
     img {

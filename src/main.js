@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import store from './store/';
 import './common/rem';
+import './common/iconfont';
 
 Vue.config.productionTip = false;
 

@@ -5,17 +5,22 @@
       <button @click="increment">+</button>
       <button @click="decrement">-</button>
     </p>
+    <movie-footer active-item="2"></movie-footer>
   </div>
 </template>
 
 <script>
+import movieFooter from '@/components/Footer';
+
 export default {
   name: 'hello',
+
   computed: {
     count() {
       return this.$store.state.count;
     },
   },
+
   methods: {
     increment() {
       this.$store.commit('increment');
@@ -24,10 +29,11 @@ export default {
       this.$store.commit('decrement');
     },
   },
+
+  components: { movieFooter },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1,
 h2 {

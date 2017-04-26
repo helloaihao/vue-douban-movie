@@ -6,6 +6,13 @@ html, body {
     color: #323232;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+  //去除点击元素阴影
+  -webkit-tap-highlight-color:rgba(255,255,255,0);
 }
 
 div, span, object, iframe, img, table, caption, thead, tbody,
@@ -52,9 +59,12 @@ img {
 	max-width: 100%;
 }
 
+// 隐藏移动端滚动条
 ::-webkit-scrollbar{
   display:none;
 }
+
+
 
 .clear:after{
     content: '';
@@ -94,6 +104,13 @@ img {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.icon {
+   width: 1em; height: 1em;
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
 }
 
 .full-star {
