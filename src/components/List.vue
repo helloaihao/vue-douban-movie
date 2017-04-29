@@ -5,9 +5,9 @@
       <div class="more">更多 ></div>
     </div>
     <div class="content">
-      <ul class="list">
+      <ul v-show="loadImgCount === listCountMax" class="list">
         <li class="item" v-for="movie in lists">
-          <img :src="movie.images.large">
+          <img :src="movie.images.large" @load="loadImgCount ++">
           <p class="name ellipsis">{{movie.title}}</p>
           <div class="rating">
             <span class="star full-star" v-for="i in movie.rating.fullStar"></span>
@@ -16,12 +16,15 @@
           </div>
         </li>
       </ul>
+      <loading class="loading" v-show="loadImgCount < listCountMax" show="true"></loading>
     </div>
   </div>
 </template>
 
 <script>
-import fetch from '@/service/fetch';
+// import fetch from '@/service/fetch';
+import loading from '@/components/Loading';
+import { mapState } from 'vuex';
 
 export default {
   name: 'movieList',
@@ -33,22 +36,20 @@ export default {
 
   data() {
     return {
+      loadImgCount: 0,
       lists: [],
     };
   },
 
   mounted() {
-    this.getMovie();
+    this.api.then(res => (this.lists = this.filter(res.data.subjects)));
   },
 
-  methods: {
-    getMovie() {
-      fetch(`${this.api}?start=0&count=10`)
-        .then((res) => {
-          this.lists = this.filter(res.data.subjects);
-        });
-    },
+  computed: mapState([
+    'listCountMax',
+  ]),
 
+  methods: {
     filter(data) {
       return data.map((moive) => {
         const tmpMovie = { ...moive };
@@ -68,6 +69,8 @@ export default {
       });
     },
   },
+
+  components: { loading },
 };
 </script>
 
@@ -102,9 +105,8 @@ export default {
     white-space: nowrap;
     font-size: 0;
     overflow-x: auto;
-    height: 2.08rem;
-    // ios 上滑动顺畅
-    -webkit-overflow-scrolling : touch;
+    height: 2.08rem; // ios 上滑动顺畅
+    -webkit-overflow-scrolling: touch;
   }
 
   .item {
@@ -150,6 +152,10 @@ export default {
         color: $gray;
       }
     }
+  }
+
+  .loading {
+    margin: 0 auto;
   }
 }
 </style>

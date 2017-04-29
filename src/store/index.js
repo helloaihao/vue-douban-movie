@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     count: 0,
+    listCountMax: 10,
   },
   mutations: {
     increment: state => state.count++,

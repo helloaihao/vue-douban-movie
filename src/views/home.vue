@@ -18,8 +18,8 @@ import movieFooter from '@/components/Footer';
 export default {
   data() {
     return {
-      onlineMovieApi: Api.onlineMovie,
-      topMovieApi: Api.topMovie,
+      onlineMovieApi: Api.onlineMovie(this.$store.state.listCountMax),
+      topMovieApi: Api.top250Movie(this.$store.state.listCountMax),
     };
   },
 
