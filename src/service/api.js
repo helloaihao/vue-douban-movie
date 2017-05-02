@@ -15,4 +15,9 @@ export default {
   usaMovie(count) {
     return fetch(`movie/us_box?count=${count}`);
   },
+
+  // 电影详情
+  movieDetail(id) {
+    return fetch(`movie/subject/${id}`);
+  },
 };

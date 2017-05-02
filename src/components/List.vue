@@ -5,8 +5,8 @@
       <div class="more">更多 ></div>
     </div>
     <div class="content">
-      <ul v-show="loadImgCount === listCountMax" class="list">
-        <li class="item" v-for="movie in lists">
+      <ul v-show="!loading && loadImgCount === lists.length" class="list">
+        <li class="item" v-for="movie in lists" @click="$router.push(`/detail/${movie.id}`)">
           <img :src="movie.images.large" @load="loadImgCount ++">
           <p class="name ellipsis">{{movie.title}}</p>
           <div class="rating">
@@ -16,15 +16,13 @@
           </div>
         </li>
       </ul>
-      <loading class="loading" v-show="loadImgCount < listCountMax" show="true"></loading>
+      <loading class="loading" v-show="loading" show="show"></loading>
     </div>
   </div>
 </template>
 
 <script>
-// import fetch from '@/service/fetch';
 import loading from '@/components/Loading';
-import { mapState } from 'vuex';
 
 export default {
   name: 'movieList',
@@ -38,21 +36,24 @@ export default {
     return {
       loadImgCount: 0,
       lists: [],
+      loading: true,
     };
   },
 
   mounted() {
-    this.api.then(res => (this.lists = this.filter(res.data.subjects)));
+    this.api.then((res) => {
+      this.loading = false;
+      if (res.data) {
+        res = res.data.subjects;
+      }
+      this.lists = this.filter(res);
+    });
   },
-
-  computed: mapState([
-    'listCountMax',
-  ]),
 
   methods: {
     filter(data) {
-      return data.map((moive) => {
-        const tmpMovie = { ...moive };
+      return data.map((movie) => {
+        const tmpMovie = { ...movie };
 
         // 星级计算
         if (tmpMovie.rating.average === 0) {
@@ -60,8 +61,8 @@ export default {
           tmpMovie.rating.fullStar = 0;
           tmpMovie.rating.emptyStar = 0;
         } else {
-          tmpMovie.rating.averageText = tmpMovie.rating.average;
-          tmpMovie.rating.fullStar = Math.floor(tmpMovie.rating.average / 2);
+          tmpMovie.rating.averageText = tmpMovie.rating.average.toFixed(1);
+          tmpMovie.rating.fullStar = Math.round(tmpMovie.rating.average / 2);
           tmpMovie.rating.emptyStar = 5 - tmpMovie.rating.fullStar;
         }
 

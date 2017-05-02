@@ -36,12 +36,12 @@ export default {
       this.$router.push('/');
     },
     showMy() {
-      this.$router.push('hello');
+      this.$router.push('my');
     },
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../assets/sass/mixin.scss';
 
 footer {

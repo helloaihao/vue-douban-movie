@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import List from '@/components/List';
-import Hello from '@/components/Hello';
-import home from '@/views/home';
+/* eslint-disable global-require */
+const home = r => require.ensure([], () => r(require('@/views/home')), 'home');
+const my = r => require.ensure([], () => r(require('@/views/my')), 'my');
+const detail = r => require.ensure([], () => r(require('@/views/detail')), 'detail');
 
 Vue.use(Router);
 
@@ -14,8 +15,12 @@ export default new Router({
       component: home,
     },
     {
-      path: '/hello',
-      component: Hello,
+      path: '/my',
+      component: my,
+    },
+    {
+      path: '/detail/:id',
+      component: detail,
     },
   ],
 });
